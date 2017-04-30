@@ -1,4 +1,4 @@
-server '172.17.0.3', user: 'root', roles: %w{app db web}
+server '172.17.0.4', user: 'root', roles: %w{app db web}
 
 set :rails_env, 'production'
 set :branch,    'master'

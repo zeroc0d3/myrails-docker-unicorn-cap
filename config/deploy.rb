@@ -1,7 +1,7 @@
 # Config valid only for current version of Capistrano
-lock "3.7.2"
+lock "3.8.1"
 
-set :application, 'myrails-docker-unicorn-cap'
+set :application, 'app'
 set :repo_url,    'git@github.com:zeroc0d3/myrails-docker-unicorn-cap.git'
 
 set :linked_files, fetch(:linked_files, []).push(
