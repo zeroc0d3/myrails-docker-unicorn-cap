@@ -9,8 +9,7 @@ set :linked_files, fetch(:linked_files, []).push(
 )
 
 set :linked_dirs, fetch(:linked_dirs, []).push(
-  'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle',
-  'public/uploads', 'public/publishments', 'public/system'
+  'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle'
 )
 
 set :keep_releases, 5
