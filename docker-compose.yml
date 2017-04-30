@@ -1,0 +1,32 @@
+# (Optional) Creates a gem cache data volume
+gems-2.4.1:
+  image: busybox
+  volumes:
+    - /data/db
+  command: /bin/true
+web_dev:
+  build: .
+  dockerfile: Dockerfile-dev
+  command: ./script/start.sh
+  env_file: .env.development
+  # Mounts your host directory as the application, for live editing
+  volumes:
+    - .:/app
+  # (Optional) Attaches gem cache data volume
+  volumes_from:
+    - gems-2.4.1
+  ports:
+    - "8080:80"
+web_prod:
+  build: .
+  dockerfile: Dockerfile
+  command: ./script/start.sh
+  env_file: .env.production
+  # Mounts your host directory as the application, for live editing
+  volumes:
+    - .:/app
+  # (Optional) Attaches gem cache data volume
+  volumes_from:
+    - gems-2.4.1
+  ports:
+    - "8081:80"
