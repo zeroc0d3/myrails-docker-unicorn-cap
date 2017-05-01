@@ -5,10 +5,16 @@ FROM zeroc0d3/nginx-unicorn-rails:1.10.3-2.4.1
 ENV GEM_HOME /ruby_gems/2.4.1
 ENV PATH /ruby_gems/2.4.1/bin:$PATH
 
+# SSH public key
+CMD mkdir /root/.ssh
+COPY key/id_rsa /root/.ssh
+COPY key/id_rsa.pub /root/.ssh
+COPY key/id_rsa.pem /root/.ssh
+
 # Set Nginx site configuration
 ADD nginx/development.conf /etc/nginx/sites-enabled/default
 
 # Automatically start the web server
 CMD ./script/start.sh
 
-EXPOSE 80
+EXPOSE 80 22
