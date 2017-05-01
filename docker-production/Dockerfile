@@ -6,10 +6,10 @@ ENV GEM_HOME /ruby_gems/2.4.1
 ENV PATH /ruby_gems/2.4.1/bin:$PATH
 
 # SSH public key
-CMD mkdir /root/.ssh
-COPY key/id_rsa /root/.ssh
-COPY key/id_rsa.pub /root/.ssh
-COPY key/id_rsa.pem /root/.ssh
+CMD mkdir -p /root/.ssh
+COPY key/id_rsa /root/.ssh/id_rsa
+COPY key/id_rsa.pub /root/.ssh/id_rsa.pub
+COPY key/id_rsa.pem /root/.ssh/id_rsa.pem
 
 # (Optional) Set custom Nginx site configuration (if you have any)
 ADD nginx/production.conf /etc/nginx/sites-enabled/default
