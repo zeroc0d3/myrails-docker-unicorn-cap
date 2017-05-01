@@ -1,32 +1,57 @@
-# (Optional) Creates a gem cache data volume
-gems-2.4.1:
-  image: busybox
-  volumes:
-    - /data/db
-  command: /bin/true
-web_dev:
-  build: .
-  dockerfile: Dockerfile-dev
-  command: ./script/start.sh
-  env_file: .env.development
-  # Mounts your host directory as the application, for live editing
-  volumes:
-    - .:/app
-  # (Optional) Attaches gem cache data volume
-  volumes_from:
-    - gems-2.4.1
-  ports:
-    - "8080:80"
-web_prod:
-  build: .
-  dockerfile: Dockerfile
-  command: ./script/start.sh
-  env_file: .env.production
-  # Mounts your host directory as the application, for live editing
-  volumes:
-    - .:/app
-  # (Optional) Attaches gem cache data volume
-  volumes_from:
-    - gems-2.4.1
-  ports:
-    - "8081:80"
+version: '2'
+
+services:
+
+    # (Optional) Creates a gem cache data volume
+    gems-2.4.1:
+      image: busybox
+      volumes:
+        - /data/db
+      command: /bin/true
+      networks:
+        - backend
+
+    web_dev:
+      build: 
+        context: ./docker-development
+      environment:
+        - RAILS_ENV=${RAILS_ENV_DEVELOPMENT}
+        - SECRET_KEY_BASE=${SECRET_KEY_BASE_DEVELOPMENT}
+      # Mounts your host directory as the application, for live editing
+      volumes:
+        - .:/app
+      # (Optional) Attaches gem cache data volume
+      volumes_from:
+        - gems-2.4.1
+      ports:
+        - "8080:80"
+      networks:
+        - backend
+        - frontend
+
+    web_prod:
+      build: 
+        context: ./docker-production
+      environment:
+        - RAILS_ENV=${RAILS_ENV_PRODUCTION}
+        - SECRET_KEY_BASE=${SECRET_KEY_BASE_PRODUCTION}
+      # Mounts your host directory as the application, for live editing
+      volumes:
+        - .:/app
+      # (Optional) Attaches gem cache data volume
+      volumes_from:
+        - gems-2.4.1
+      ports:
+        - "8081:80"
+      networks:
+        - backend
+        - frontend
+
+
+### Networks Setup ############################################
+
+networks:
+  frontend:
+    driver: "bridge"
+  backend:
+    driver: "bridge"
