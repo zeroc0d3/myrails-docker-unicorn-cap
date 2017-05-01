@@ -25,6 +25,7 @@ services:
       volumes_from:
         - gems-2.4.1
       ports:
+        - "5122:22"
         - "8080:80"
       networks:
         - node1
@@ -42,6 +43,7 @@ services:
       volumes_from:
         - gems-2.4.1
       ports:
+        - "5123:22"
         - "8081:80"
       networks:
         - node2
