@@ -9,7 +9,8 @@ services:
         - /data/db
       command: /bin/true
       networks:
-        - backend
+        - node1
+        - node2
 
     web_dev:
       build: 
@@ -26,8 +27,7 @@ services:
       ports:
         - "8080:80"
       networks:
-        - backend
-        - frontend
+        - node1
 
     web_prod:
       build: 
@@ -44,14 +44,13 @@ services:
       ports:
         - "8081:80"
       networks:
-        - backend
-        - frontend
+        - node2
 
 
 ### Networks Setup ############################################
 
 networks:
-  frontend:
+  node1:
     driver: "bridge"
-  backend:
+  node2:
     driver: "bridge"
