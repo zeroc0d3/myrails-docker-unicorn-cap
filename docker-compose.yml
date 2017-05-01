@@ -8,9 +8,6 @@ services:
       volumes:
         - /data/db
       command: /bin/true
-      networks:
-        - node1
-        - node2
 
     web_dev:
       build: 
@@ -18,10 +15,8 @@ services:
       environment:
         - RAILS_ENV=${RAILS_ENV_DEVELOPMENT}
         - SECRET_KEY_BASE=${SECRET_KEY_BASE_DEVELOPMENT}
-      # Mounts your host directory as the application, for live editing
       volumes:
         - .:/app
-      # (Optional) Attaches gem cache data volume
       volumes_from:
         - gems-2.4.1
       ports:
@@ -36,10 +31,8 @@ services:
       environment:
         - RAILS_ENV=${RAILS_ENV_PRODUCTION}
         - SECRET_KEY_BASE=${SECRET_KEY_BASE_PRODUCTION}
-      # Mounts your host directory as the application, for live editing
       volumes:
         - .:/app
-      # (Optional) Attaches gem cache data volume
       volumes_from:
         - gems-2.4.1
       ports:
